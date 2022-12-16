@@ -1,3 +1,5 @@
+from functools import reduce
+
 lines = open("input.prod", "r").read().split("\n")
 lines.pop()  # get rid of empty line
 
@@ -34,11 +36,7 @@ def part_1():
             to_s.append(from_s.pop())
             quantity -= 1
 
-    ans = ""
-    for stack in stacks:
-        ans += stack[-1]
-
-    return ans
+    return reduce(lambda x, y: x + y[-1], stacks, "")
 
 
 def part_2():
@@ -67,11 +65,7 @@ def part_2():
         while temp_s:
             to_s.append(temp_s.pop())
 
-    ans = ""
-    for stack in stacks:
-        ans += stack[-1]
-
-    return ans
+    return reduce(lambda x, y: x + y[-1], stacks, "")
 
 
 print("Part 1 Answer: " + str(part_1()))

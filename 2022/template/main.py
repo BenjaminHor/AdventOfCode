@@ -1,3 +1,5 @@
+from functools import reduce
+
 lines = open("input.prod", "r").read().split("\n")
 
 
