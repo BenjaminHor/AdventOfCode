@@ -18,7 +18,6 @@ def update_all_positions(direction, units, knots, head, tail, history):
     dir_map = {"R": Vec(1, 0), "L": Vec(-1, 0), "U": Vec(0, 1), "D": Vec(0, -1)}
     dir = dir_map[direction]
     for i in range(units):
-        # reset_grid()
         # Need to update each knot in knots
         # Start with head
         head.x += dir.x
@@ -46,32 +45,7 @@ def update_all_positions(direction, units, knots, head, tail, history):
 
             pointer += 1
 
-        # reset_grid()
-        # for i in range(len(knots) - 1, -1, -1):
-        #     knot = knots[i]
-        #     grid[knot.y % len(grid)][knot.x % len(grid[0])] = str(i)
-        # print("--------------------------------")
-        # print_grid()
-        # input("")
-
         history.add((tail.x, tail.y))
-
-
-grid = []
-
-
-def print_grid():
-    global grid
-    for row in range(len(grid) - 1, -1, -1):
-        line = ""
-        for col in grid[row]:
-            line += col + " "
-        print(line)
-
-
-def reset_grid():
-    global grid
-    grid = [["." for i in range(30)] for i in range(20)]
 
 
 def part_1():
@@ -81,9 +55,6 @@ def part_1():
     tail = knots[-1]
     history = set()
     history.add((0, 0))
-    # reset_grid()
-    # grid[head.y][head.x] = "0"
-    # print_grid()
 
     for line in lines:
         command = line.split(" ")
@@ -95,16 +66,12 @@ def part_1():
 
 
 def part_2():
-    global grid
     # Positions start at 0,0
     knots = [Vec() for i in range(10)]
     head = knots[0]
     tail = knots[-1]
     history = set()
     history.add((0, 0))
-    # reset_grid()
-    # grid[head.y][head.x] = "0"
-    # print_grid()
 
     for line in lines:
         command = line.split(" ")
