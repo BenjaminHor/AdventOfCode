@@ -5,96 +5,53 @@ lines = [line for line in lines if line != ""]
 
 
 def is_visible(row, col, trees):
-    tree = trees[row][col]
+    tree = int(trees[row][col])
 
-    # Need to search outward, north, south, east, west
-    # North
-    pointer = row - 1
-    n_visible = True
-    while pointer >= 0:
-        adj = trees[pointer][col]
-        if adj >= tree:
-            n_visible = False
-            break
-        pointer -= 1
+    n_visible = tree > max([int(trees[i][col]) for i in range(row - 1, -1, -1)])
 
-    # South
-    pointer = row + 1
-    s_visible = True
-    while pointer < len(trees):
-        adj = trees[pointer][col]
-        if adj >= tree:
-            s_visible = False
-            break
-        pointer += 1
+    s_visible = tree > max([int(trees[i][col]) for i in range(row + 1, len(trees))])
 
-    # East
-    pointer = col - 1
-    e_visible = True
-    while pointer >= 0:
-        adj = trees[row][pointer]
-        if adj >= tree:
-            e_visible = False
-            break
-        pointer -= 1
+    e_visible = tree > max([int(trees[row][i]) for i in range(col - 1, -1, -1)])
 
-    # West
-    pointer = col + 1
-    w_visible = True
-    while pointer < len(trees[0]):
-        adj = trees[row][pointer]
-        if adj >= tree:
-            w_visible = False
-            break
-        pointer += 1
+    w_visible = tree > max(
+        [int(trees[row][i]) for i in range(col + 1, len(trees[row]))]
+    )
 
     return n_visible or s_visible or e_visible or w_visible
 
 
 def get_score(row, col, trees):
-    tree = trees[row][col]
+    tree = int(trees[row][col])
 
-    # Need to search outward, north, south, east, west
-    # North
-    pointer = row - 1
-    n_score = 0
-    while pointer >= 0:
-        n_score += 1
-        adj = trees[pointer][col]
-        if adj >= tree:
+    north = [int(trees[i][col]) for i in range(row - 1, -1, -1)]
+    n = 0
+    for t in north:
+        n += 1
+        if t >= tree:
             break
-        pointer -= 1
 
-    # South
-    pointer = row + 1
-    s_score = 0
-    while pointer < len(trees):
-        s_score += 1
-        adj = trees[pointer][col]
-        if adj >= tree:
+    south = [int(trees[i][col]) for i in range(row + 1, len(trees))]
+    s = 0
+    for t in south:
+        s += 1
+        if t >= tree:
             break
-        pointer += 1
 
-    # East
-    pointer = col - 1
-    e_score = 0
-    while pointer >= 0:
-        e_score += 1
-        adj = trees[row][pointer]
-        if adj >= tree:
+    east = [int(trees[row][i]) for i in range(col - 1, -1, -1)]
+    e = 0
+    for t in east:
+        e += 1
+        if t >= tree:
             break
-        pointer -= 1
 
-    # West
-    pointer = col + 1
-    w_score = 0
-    while pointer < len(trees[0]):
-        w_score += 1
-        adj = trees[row][pointer]
-        if adj >= tree:
+    west = [int(trees[row][i]) for i in range(col + 1, len(trees[row]))]
+    w = 0
+    for t in west:
+        w += 1
+        if t >= tree:
             break
-        pointer += 1
-    return n_score * s_score * e_score * w_score
+
+    return n * s * e * w
 
 
 def part_1():
