@@ -37,14 +37,10 @@ def update_all_positions(direction, units, knots, head, tail, history):
                 # x, y must be within range [-1, 1] (normalized)
                 offset_x = prev_knot.x - knot.x
                 offset_y = prev_knot.y - knot.y
-                if offset_x >= 0:
-                    offset_x = min(offset_x, 1)
-                elif offset_x < 0:
-                    offset_x = max(offset_x, -1)
-                if offset_y >= 0:
-                    offset_y = min(offset_y, 1)
-                elif offset_y < 0:
-                    offset_y = max(offset_y, -1)
+                if offset_x != 0:
+                    offset_x = math.copysign(1, prev_knot.x - knot.x)
+                if offset_y != 0:
+                    offset_y = math.copysign(1, prev_knot.y - knot.y)
                 knot.x += offset_x
                 knot.y += offset_y
 
