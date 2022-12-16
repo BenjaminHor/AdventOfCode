@@ -37,11 +37,14 @@ def update_all_positions(direction, units, knots, head, tail, history):
                 offset_x = prev_knot.x - knot.x
                 offset_y = prev_knot.y - knot.y
                 if offset_x != 0:
-                    offset_x = math.copysign(1, prev_knot.x - knot.x)
+                    offset_x = math.copysign(1, offset_x)
                 if offset_y != 0:
-                    offset_y = math.copysign(1, prev_knot.y - knot.y)
+                    offset_y = math.copysign(1, offset_y)
                 knot.x += offset_x
                 knot.y += offset_y
+            else:
+                # No need to check remaining knots
+                break
 
             pointer += 1
 
